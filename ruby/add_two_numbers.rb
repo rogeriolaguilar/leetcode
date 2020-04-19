@@ -22,8 +22,34 @@ class ListNode
 end
 
 # Implementation
-def add_two_numbers(_l1, _l2)
-  
+def add_two_numbers(l1, l2)
+  out_digit = 0
+  current_digit1 = l1
+  current_digit2 = l2
+  result = nil
+
+  until current_digit1.nil? && current_digit2.nil?
+    p "Current digits: #{current_digit1.val} #{current_digit2.val} and out digit #{out_digit} #"
+    sum = current_digit1.val + current_digit2.val + out_digit
+    out_digit = sum < 10 ? 0 : 1
+    digit_sum = sum % 10
+
+    p "Current sum digit: #{digit_sum}"
+    p "Current out digit: #{out_digit}"
+
+    if result.nil?
+      result = ListNode.new(digit_sum)
+      last_node = result
+    else
+      last_node.next = ListNode.new(digit_sum)
+      last_node = last_node.next
+    end
+
+    current_digit1 = current_digit1.next
+    current_digit2 = current_digit2.next
+  end
+
+  result
 end
 
 ###### Test
@@ -53,5 +79,5 @@ end
 
 ##########
 
-p "Result: #{result}"
-p "Expected: #{expected}"
+p "Result: #{to_string(result)}"
+p "Expected: #{to_string(expected)}"
