@@ -32,7 +32,7 @@ def add_two_numbers(l1, l2)
     digit1 = current_digit1.nil? ? 0 : current_digit1.val
     digit2 = current_digit2.nil? ? 0 : current_digit2.val
 
-    p "Current digits: #{digit1} and #{digit2}. Outdigit #{out_digit}"
+    p "Current digits: #{digit1} and #{digit2}. Out digit #{out_digit}"
     sum = digit1 + digit2 + out_digit
     out_digit = sum < 10 ? 0 : 1
     digit_sum = sum % 10
@@ -52,6 +52,7 @@ def add_two_numbers(l1, l2)
     current_digit2 = current_digit2&.next
   end
 
+  #result.next = ListNode.new(out_digit) if out_digit > 0
   result
 end
 
@@ -67,6 +68,22 @@ def to_number(list)
 end
 ##########
 
+l1 = ListNode.new(9)
+l2 = ListNode.new(5)
+p "###### Testing 9 + 5 = 11"
+result = add_two_numbers(l1, l2)
+p "Result: #{to_string(result)}"
+raise StandardError if to_number(result) != 14
+
+l1 = ListNode.new(1)
+l2 = ListNode.new(9)
+l2.next = ListNode.new(9)
+p "###### Testing 1 + 99 = 100"
+result = add_two_numbers(l1, l2)
+p "Result: #{to_string(result)}"
+raise StandardError if to_number(result) != 100
+
+
 l1 = ListNode.new(2)
 l1.next = ListNode.new(4)
 l1.next.next = ListNode.new(3)
@@ -76,11 +93,11 @@ l2.next = ListNode.new(6)
 l2.next.next = ListNode.new(4)
 
 result = add_two_numbers(l1, l2)
-p "Testing 342 + 465 = #{342 + 465}"
+p "##### Testing 342 + 465 = #{342 + 465}"
 p "Result: #{to_string(result)}"
 
 
 l1.next.next.next = ListNode.new(9)
 result = add_two_numbers(l1, l2)
-p "Testing 9342 + 465 = #{9342 + 465}"
+p "###### Testing 9342 + 465 = #{9342 + 465}"
 p "Result: #{to_string(result)}"
