@@ -1,0 +1,11 @@
+AllCops:
+  TargetRubyVersion: 2.7
+  Include:
+    - '**/*.rb'
+
+Metrics/LineLength:
+  Max: 140
+
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context', 'define']
+  

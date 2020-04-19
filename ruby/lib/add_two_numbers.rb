@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 '''
 You are given two non-empty linked lists representing two non-negative integers.
 The digits are stored in reverse order and each of their nodes contain a single digit.
@@ -21,7 +23,6 @@ class ListNode
   end
 end
 
-# Implementation
 def add_two_numbers(l1, l2)
   out_digit = 0
   current_digit1 = l1
@@ -47,57 +48,20 @@ def add_two_numbers(l1, l2)
       last_node.next = ListNode.new(digit_sum)
       last_node = last_node.next
     end
-
     current_digit1 = current_digit1&.next
     current_digit2 = current_digit2&.next
   end
 
-  #result.next = ListNode.new(out_digit) if out_digit > 0
+  last_node.next = ListNode.new(out_digit) if out_digit.positive?
   result
 end
 
-###### Test 
+# #########  some helper functions
+# def to_string(list)
+#   list.next.nil? ? list.val.to_s : "#{list.val} -> #{to_string(list.next)}"
+# end
 
-#########  some helper functions
-def to_string(list)
-  list.next.nil? ? list.val.to_s : "#{list.val} -> #{to_string(list.next)}"
-end
-
-def to_number(list)
-  list.next.nil? ? list.val : "#{to_number(list.next)}#{list.val}".to_i
-end
-##########
-
-l1 = ListNode.new(9)
-l2 = ListNode.new(5)
-p "###### Testing 9 + 5 = 11"
-result = add_two_numbers(l1, l2)
-p "Result: #{to_string(result)}"
-raise StandardError if to_number(result) != 14
-
-l1 = ListNode.new(1)
-l2 = ListNode.new(9)
-l2.next = ListNode.new(9)
-p "###### Testing 1 + 99 = 100"
-result = add_two_numbers(l1, l2)
-p "Result: #{to_string(result)}"
-raise StandardError if to_number(result) != 100
-
-
-l1 = ListNode.new(2)
-l1.next = ListNode.new(4)
-l1.next.next = ListNode.new(3)
-
-l2 = ListNode.new(5)
-l2.next = ListNode.new(6)
-l2.next.next = ListNode.new(4)
-
-result = add_two_numbers(l1, l2)
-p "##### Testing 342 + 465 = #{342 + 465}"
-p "Result: #{to_string(result)}"
-
-
-l1.next.next.next = ListNode.new(9)
-result = add_two_numbers(l1, l2)
-p "###### Testing 9342 + 465 = #{9342 + 465}"
-p "Result: #{to_string(result)}"
+# def to_number(list)
+#   list.next.nil? ? list.val : "#{to_number(list.next)}#{list.val}".to_i
+# end
+# ##########
