@@ -37,29 +37,31 @@ class OtherBruteForceSolution:
 
 class TwoPassHashSolution:
   def twoSum(self, nums: [int], target: int):
+    """
+    :type nums: List[int]
+    :type target: int
+    :rtype: List[int]
+    """
     table = {}
     last_index = len(nums) - 1
 
-    start_time = time.clock()
     for i, v in enumerate(nums):
-      table[v] = i
-    print("Two-pass Hash Table: time to create Hash Table", (time.clock() - start_time) * 1000, 'miliseconds')
+        table[v] = i
 
     j = 0
     while j <= last_index: 
-      # look for the complement in the table
-      complement = target - nums[j]
-      if complement != nums[j] and (complement in table.keys()):
-        return [j, table[complement]] 
-      j += 1
-
+        # look for the complement in the table
+        complement = target - nums[j]
+        if (complement in table and table[complement] != j):
+            return [j, table[complement]] 
+        j += 1
     
 class OnePassHashSolution:
   def twoSum(self, nums, target):
     seen = {}
     for i, v in enumerate(nums):
       remaining = target - v
-      if remaining in seen:
+      if remaining in seen and i != seen[remaining]:
         return [seen[remaining], i]
       seen[v] = i
     return []
