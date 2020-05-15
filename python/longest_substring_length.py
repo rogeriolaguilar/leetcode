@@ -3,6 +3,9 @@ Given a string, find the length of the longest substring without repeating chara
 
 Example 1:
 
+longest_length = 3
+counter = 3
+
 Input: "abcabcbb"
 Output: 3 
 Explanation: The answer is "abc", with the length of 3. 
@@ -22,19 +25,18 @@ Explanation: The answer is "wke", with the length of 3.
 class LongestSubstringLength:
   def lengthOfLongestSubstring(self, s: str) -> int:
     longest_length = 0
-    
-    length = 0
-    last_char = ''
+    substring = []
     for char in s:
-      if char != last_char:
-        length += 1
-        if longest_length < length:
-          longest_length = length
-      else:
-        if longest_length < length:
-          longest_length = length        
-        length = 1
-      last_char = char
+      substring = self.slide_window(substring, char)
+      size = len(substring)
+      if size > longest_length:
+        longest_length = size
 
-    
     return longest_length
+
+  def slide_window(self, array, new_value):
+    for i, value in enumerate(array):
+      if value == new_value:
+        return array[i+1:] + [new_value]
+    return array + [new_value]
+
