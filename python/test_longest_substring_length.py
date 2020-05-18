@@ -36,5 +36,9 @@ class TestLongestSubstringLength(unittest.TestCase):
     result = self.soluction.lengthOfLongestSubstring('pwwkew')
     self.assertEqual(result, 3)
 
+  def test_when_the_major_substring_is_in_the_end_after_repeated_chars(self):
+    result = self.soluction.lengthOfLongestSubstring('tmmzuxt')
+    self.assertEqual(result, 5)
+
 if __name__ == '__main__':
     unittest.main()

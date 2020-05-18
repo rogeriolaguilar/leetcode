@@ -26,24 +26,16 @@ class LongestSubstringLength:
   def lengthOfLongestSubstring(self, s: str) -> int:
     longest_length = 0
     dict_substring = {}
-    window_being = 0
+    window_begin = 0
     for position, char in enumerate(s):
-      window_being = self.slide_window(dict_substring, char, window_being, position)
-      size = position - window_being + 1
+      if char in dict_substring:
+        old_position = dict_substring[char]
+        if old_position >= window_begin:
+          window_begin = old_position + 1      
+
+      size = position - window_begin + 1
       if size > longest_length:
         longest_length = size
-
+      dict_substring[char] = position
     return longest_length
-
-  def slide_window(self, dict_substring, new_value, window_being, position):
-    try:
-      old_position = dict_substring[new_value]
-      dict_substring[new_value] = position
-      if old_position >= window_being:
-        window_being = old_position + 1
-      return window_being
-    except KeyError:
-      dict_substring[new_value] = position
-      return window_being
-
 
