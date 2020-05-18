@@ -25,18 +25,25 @@ Explanation: The answer is "wke", with the length of 3.
 class LongestSubstringLength:
   def lengthOfLongestSubstring(self, s: str) -> int:
     longest_length = 0
-    substring = []
-    for char in s:
-      substring = self.slide_window(substring, char)
-      size = len(substring)
+    dict_substring = {}
+    window_being = 0
+    for position, char in enumerate(s):
+      window_being = self.slide_window(dict_substring, char, window_being, position)
+      size = position - window_being + 1
       if size > longest_length:
         longest_length = size
 
     return longest_length
 
-  def slide_window(self, array, new_value):
-    for i, value in enumerate(array):
-      if value == new_value:
-        return array[i+1:] + [new_value]
-    return array + [new_value]
+  def slide_window(self, dict_substring, new_value, window_being, position):
+    try:
+      old_position = dict_substring[new_value]
+      dict_substring[new_value] = position
+      if old_position >= window_being:
+        window_being = old_position + 1
+      return window_being
+    except KeyError:
+      dict_substring[new_value] = position
+      return window_being
+
 
